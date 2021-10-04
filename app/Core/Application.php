@@ -28,13 +28,18 @@ class Application
         new Web($this->routeServiceProvider);
         new Api($this->routeServiceProvider);
 
-        //check if the response is a 404 if not then call the render function else display 404
-        if ($this->routeServiceProvider->loadRoute($this->processUrl()) != null) {
-            //echo valid route
-            echo "valid route";
-        } else {
-            //echo 404 error
-            echo "ERROR: 404 route not found";
+        $proccesedUrl = $this->processUrl();
+        //firstly we check for a web or api call, if it's not the api then load the web else process the api
+        if($proccesedUrl[0] != "/api") {
+            //check if the response is a 404 if not then call the render function else display 404
+            if (!$this->routeServiceProvider->loadRoute($proccesedUrl)) {
+                echo "ERROR: 404 route not found";
+            }
+        }else{
+            $apiUrl = array_slice($proccesedUrl,1,count($proccesedUrl)-1,);
+            if (!$this->routeServiceProvider->loadApiRoute($apiUrl)) {
+                echo "ERROR: 404 API route not found";
+            }
         }
     }
 
