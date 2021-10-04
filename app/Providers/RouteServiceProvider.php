@@ -34,7 +34,6 @@ class RouteServiceProvider extends Provider
     public function loadRoute(array $url)
     {
 
-        Console::log(json_encode($url));
 
         //first check if we have an url string set at position 0, if so proceed
         if (isset($url[0])) {
@@ -47,16 +46,13 @@ class RouteServiceProvider extends Provider
 
                 //check if the next url string is in the array of routes as a key
                 if(isset($url[1]) && array_key_exists($url[1],$selectedGroup->getRoutes())){
-                    Console::log("Route Found: ".$url[1]);
                     $namespace = "app\controllers\ ";
                     $namespace = substr($namespace,0,-1);
                     $callback = $namespace.$selectedGroup->getRoutes()[$url[1]];
-                    Console::log($callback.$url[1]);
                     return new $callback($url[1]);
 
                 //else we need to check to see if a default index route is valid, if so load it
                 }else if(array_key_exists("/",$selectedGroup->getRoutes()) && !isset($url[1])){
-                    Console::log("Route Found: /");
                     $namespace = "app\controllers\ ";
                     $namespace = substr($namespace,0,-1);
                     $callback = $namespace.$selectedGroup->getRoutes()["/"];
@@ -67,12 +63,10 @@ class RouteServiceProvider extends Provider
                 //load default routes
                 $selectedGroup = $this->webRouteGroups["/"];
                 if(array_key_exists($url[0],$selectedGroup->getRoutes())){
-                    Console::log("Route Found: ".$url[0]);
 
                     $namespace = "app\controllers\ ";
                     $namespace = substr($namespace,0,-1);
                     $callback = $namespace.$selectedGroup->getRoutes()[$url[0]];
-                    Console::log($callback.$url[0]);
                     return new $callback($url[0]);
                 }
             }
@@ -82,7 +76,6 @@ class RouteServiceProvider extends Provider
 
         //**** LOAD API ROUTE AND CHECK FOR CONTROLLER & ROUTE MATCHES RETURNS THE CONTROLLER ****\\
         public function  loadApiRoute(array $url){
-            Console::log(json_encode($url));
             //first check if we have an url string set at position 0, if so proceed
             if (isset($url[0])) {
 
@@ -94,16 +87,13 @@ class RouteServiceProvider extends Provider
 
                     //check if the next url string is in the array of routes as a key
                     if(isset($url[1]) && array_key_exists($url[1],$selectedGroup->getRoutes())){
-                        Console::log("Route Found: ".$url[1]);
                         $namespace = "app\controllers\ ";
                         $namespace = substr($namespace,0,-1);
                         $callback = $namespace.$selectedGroup->getRoutes()[$url[1]];
-                        Console::log($callback.$url[1]);
                         return new $callback($url[1]);
 
                         //else we need to check to see if a default index route is valid, if so load it
                     }else if(array_key_exists("/",$selectedGroup->getRoutes()) && !isset($url[1])){
-                        Console::log("Route Found: /");
                         $namespace = "app\controllers\ ";
                         $namespace = substr($namespace,0,-1);
                         $callback = $namespace.$selectedGroup->getRoutes()["/"];
@@ -114,12 +104,10 @@ class RouteServiceProvider extends Provider
                     //load default routes
                         $selectedGroup = $this->apiRouteGroups["/"];
                         if (array_key_exists($url[0], $selectedGroup->getRoutes())) {
-                            Console::log("Route Found: " . $url[0]);
 
                             $namespace = "app\controllers\ ";
                             $namespace = substr($namespace, 0, -1);
                             $callback = $namespace . $selectedGroup->getRoutes()[$url[0]];
-                            Console::log($callback . $url[0]);
                             return new $callback($url[0]);
                         }
                     }
