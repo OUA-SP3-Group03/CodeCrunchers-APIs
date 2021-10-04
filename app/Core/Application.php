@@ -29,7 +29,7 @@ class Application
         new Api($this->routeServiceProvider);
 
         //check if the response is a 404 if not then call the render function else display 404
-        if ($this->routeServiceProvider->loadRoute($this->processUrl()) != 404) {
+        if ($this->routeServiceProvider->loadRoute($this->processUrl()) != null) {
             //echo valid route
             echo "valid route";
         } else {
