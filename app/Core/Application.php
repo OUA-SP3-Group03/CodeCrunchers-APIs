@@ -35,11 +35,13 @@ class Application
             //check if the response is a 404 if not then call the render function else display 404
             if (!$this->routeServiceProvider->loadRoute($proccesedUrl)) {
                 echo Gate::getError(404);
+                http_response_code(404);
             }
         }else{
             $apiUrl = array_slice($proccesedUrl,1,count($proccesedUrl)-1,);
             if (!$this->routeServiceProvider->loadApiRoute($apiUrl)) {
                 echo Gate::getError(404);
+                http_response_code(404);
             }
         }
     }
