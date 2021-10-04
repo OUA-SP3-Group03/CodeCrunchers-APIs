@@ -12,15 +12,14 @@ class Request
     private array $postData;
     private array $getData;
 
-    public function __construct(){
+    public function validate(Rule $rule){
+    //TODO add validate functionality
     }
 
     public function setPostData($postData){
         $this->postData = $postData;
-        Console::log(json_encode($postData));
     }
     public function setGetData($getData){
         $this->getData = $getData;
-        Console::log(json_encode($getData));
     }
 }

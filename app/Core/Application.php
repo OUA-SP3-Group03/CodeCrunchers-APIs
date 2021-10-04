@@ -1,7 +1,9 @@
 <?php
 
-use app\core\Console;
 use app\core\Request;
+use app\providers\RouteServiceProvider;
+use app\routes\Api;
+use app\routes\Web;
 
 /**
  * Copyright Jack Harris
@@ -13,12 +15,40 @@ class Application
 {
     //**** SET CLASS VARIABLES ****\\
     private Request $request;
+    private RouteServiceProvider $routeServiceProvider;
 
     //**** LOAD CLASS CONSTRUCTOR ****\\
     public function __construct()
     {
-    //call create Request Method;
-    $this->createRequest();
+        //call create Request Method
+        $this->createRequest();
+        //create the route service provider
+        $this->routeServiceProvider = new RouteServiceProvider();
+        //add the routes from the API and Web files by creating a new instance of each of them
+        new Web($this->routeServiceProvider);
+        new Api($this->routeServiceProvider);
+
+        //check if the response is a 404 if not then call the render function else display 404
+        if ($this->routeServiceProvider->loadRoute($this->processUrl()) != 404) {
+            //echo valid route
+            echo "valid route";
+        } else {
+            //echo 404 error
+            echo "ERROR: 404 route not found";
+        }
+    }
+
+    //**** PROCESS URL METHOD ****\\
+    //converts the URL string into an array that is processed by the route service provide
+    private function processUrl(){
+        //create blank array, needed in the event no url is passed
+        $url = [];
+        $url = explode("/",$_SERVER['REQUEST_URI']);
+           foreach ($url as $key => $item) {
+               $url[$key] = "/".$item;
+           }
+        //returns the url array with the first value removed, this is important as we do not want to look at the first "/", it will default to 1  "/" regardless
+        return array_slice($url,1,count($url)-1);
     }
 
     //**** CREATE REQUEST METHOD ****\\

@@ -14,10 +14,11 @@ const DATABASE = ROOT.'Database'.DIRECTORY_SEPARATOR;
 const PROVIDERS = ROOT.'Providers'.DIRECTORY_SEPARATOR;
 const ROUTES = ROOT.'Routes'.DIRECTORY_SEPARATOR;
 const VIEWS = ROOT.'Views'.DIRECTORY_SEPARATOR;
+const RULES = ROOT.'Rules'.DIRECTORY_SEPARATOR;
 
 //**** PHP CLASS AUTO LOADER ****\\
 //create array of folders to be auto-loaded by PHP.
-$modules = [ROOT,APP,CONTROLLERS,CORE,DATABASE,PROVIDERS,ROUTES,VIEWS];
+$modules = [ROOT,APP,CONTROLLERS,CORE,DATABASE,PROVIDERS,ROUTES,VIEWS,RULES];
 //set to include path of each of the folders specified in the modules array
 set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $modules));
 //call spl auto-load
