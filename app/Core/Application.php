@@ -1,5 +1,6 @@
 <?php
 
+use app\core\Gate;
 use app\core\Request;
 use app\providers\RouteServiceProvider;
 use app\routes\Api;
@@ -33,12 +34,12 @@ class Application
         if($proccesedUrl[0] != "/api") {
             //check if the response is a 404 if not then call the render function else display 404
             if (!$this->routeServiceProvider->loadRoute($proccesedUrl)) {
-                echo "ERROR: 404 route not found";
+                echo Gate::getError(404);
             }
         }else{
             $apiUrl = array_slice($proccesedUrl,1,count($proccesedUrl)-1,);
             if (!$this->routeServiceProvider->loadApiRoute($apiUrl)) {
-                echo "ERROR: 404 API route not found";
+                echo Gate::getError(404);
             }
         }
     }
