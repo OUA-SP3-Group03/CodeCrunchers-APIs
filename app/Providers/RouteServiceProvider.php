@@ -13,47 +13,118 @@ use app\core\Provider;
 
 class RouteServiceProvider extends Provider
 {
-    private array $routeGroups;
+    private array $webRouteGroups;
+    private array $apiRouteGroups;
 
-    //****  ADD A ROUTE GROUP ****\\
+    public function __construct(){
+        $this->apiRouteGroups = [];
+        $this->webRouteGroups = [];
+    }
+
+    //****  ADD A WEB ROUTE GROUP ****\\
     public function addRouteGroup(String $prefix,RouteGroup $routeGroup){
-        $this->routeGroups[$prefix] = $routeGroup;
+        $this->webRouteGroups[$prefix] = $routeGroup;
+    }
+    //**** ADD A API ROUTE GROUP ****\\
+    public function addApiRouteGroup(String $prefix,RouteGroup $routeGroup){
+        $this->apiRouteGroups[$prefix] = $routeGroup;
     }
 
     //****  LOAD ROUTE FUNCTION TO CHECK THE ROUTE GROUPS AND ROUTES FOR A URL MATCH ****\\
-    public function loadRoute(array $url): int
+    public function loadRoute(array $url)
     {
+
         Console::log(json_encode($url));
 
         //first check if we have an url string set at position 0, if so proceed
         if (isset($url[0])) {
 
             //now check if the array key exists in the route groups, if so proceed to the next check
-            if (array_key_exists($url[0], $this->routeGroups)) {
+            if (array_key_exists($url[0], $this->webRouteGroups)) {
 
                 //set the selected route group to a local variable
-                $selectedGroup = $this->routeGroups[$url[0]];
+                $selectedGroup = $this->webRouteGroups[$url[0]];
 
                 //check if the next url string is in the array of routes as a key
                 if(isset($url[1]) && array_key_exists($url[1],$selectedGroup->getRoutes())){
                     Console::log("Route Found: ".$url[1]);
-                    return 200;
+                    $namespace = "app\controllers\ ";
+                    $namespace = substr($namespace,0,-1);
+                    $callback = $namespace.$selectedGroup->getRoutes()[$url[1]];
+                    Console::log($callback.$url[1]);
+                    return new $callback($url[1]);
 
                 //else we need to check to see if a default index route is valid, if so load it
-                }else if(array_key_exists("/",$selectedGroup->getRoutes())){
+                }else if(array_key_exists("/",$selectedGroup->getRoutes()) && !isset($url[1])){
                     Console::log("Route Found: /");
-                    return 200;
+                    $namespace = "app\controllers\ ";
+                    $namespace = substr($namespace,0,-1);
+                    $callback = $namespace.$selectedGroup->getRoutes()["/"];
+                    return new $callback("/");
                 }
 
             }else{
                 //load default routes
-                $selectedGroup = $this->routeGroups["/"];
+                $selectedGroup = $this->webRouteGroups["/"];
                 if(array_key_exists($url[0],$selectedGroup->getRoutes())){
                     Console::log("Route Found: ".$url[0]);
-                    return 200;
+
+                    $namespace = "app\controllers\ ";
+                    $namespace = substr($namespace,0,-1);
+                    $callback = $namespace.$selectedGroup->getRoutes()[$url[0]];
+                    Console::log($callback.$url[0]);
+                    return new $callback($url[0]);
                 }
             }
         }
-            return 404;
+            return null;
+        }
+
+        //**** LOAD API ROUTE AND CHECK FOR CONTROLLER & ROUTE MATCHES RETURNS THE CONTROLLER ****\\
+        public function  loadApiRoute(array $url){
+            Console::log(json_encode($url));
+            //first check if we have an url string set at position 0, if so proceed
+            if (isset($url[0])) {
+
+                //now check if the array key exists in the route groups, if so proceed to the next check
+                if (array_key_exists($url[0], $this->apiRouteGroups)) {
+
+                    //set the selected route group to a local variable
+                    $selectedGroup = $this->apiRouteGroups[$url[0]];
+
+                    //check if the next url string is in the array of routes as a key
+                    if(isset($url[1]) && array_key_exists($url[1],$selectedGroup->getRoutes())){
+                        Console::log("Route Found: ".$url[1]);
+                        $namespace = "app\controllers\ ";
+                        $namespace = substr($namespace,0,-1);
+                        $callback = $namespace.$selectedGroup->getRoutes()[$url[1]];
+                        Console::log($callback.$url[1]);
+                        return new $callback($url[1]);
+
+                        //else we need to check to see if a default index route is valid, if so load it
+                    }else if(array_key_exists("/",$selectedGroup->getRoutes()) && !isset($url[1])){
+                        Console::log("Route Found: /");
+                        $namespace = "app\controllers\ ";
+                        $namespace = substr($namespace,0,-1);
+                        $callback = $namespace.$selectedGroup->getRoutes()["/"];
+                        return new $callback("/");
+                    }
+
+                }else{
+                    //load default routes
+                        $selectedGroup = $this->apiRouteGroups["/"];
+                        if (array_key_exists($url[0], $selectedGroup->getRoutes())) {
+                            Console::log("Route Found: " . $url[0]);
+
+                            $namespace = "app\controllers\ ";
+                            $namespace = substr($namespace, 0, -1);
+                            $callback = $namespace . $selectedGroup->getRoutes()[$url[0]];
+                            Console::log($callback . $url[0]);
+                            return new $callback($url[0]);
+                        }
+                    }
+
+            }
+            return null;
         }
     }
