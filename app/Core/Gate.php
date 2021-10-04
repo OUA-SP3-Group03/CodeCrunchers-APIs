@@ -15,12 +15,14 @@ class Gate
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             return null;
         }
+        http_response_code(405);
         return 405;
     }
     public static function get(): ?int{
         if($_SERVER['REQUEST_METHOD'] == "GET"){
             return null;
         }
+        http_response_code(405);
         return 405;
     }
 
