@@ -16,9 +16,17 @@ class Request
     //TODO add validate functionality
     }
 
+    //**** GET POST DATA METHOD ****\\
+    public function getPostData(){
+        return $this->postData;
+    }
+
+    //**** SET POST DATA METHOD ****\\
     public function setPostData($postData){
         $this->postData = $postData;
     }
+
+    //**** SET GET DATA METHOD ****\\
     public function setGetData($getData){
         $this->getData = $getData;
     }
