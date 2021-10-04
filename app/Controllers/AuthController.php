@@ -10,23 +10,22 @@ namespace app\controllers;
 use app\core\Console;
 use app\core\Controller;
 
-class DefaultController extends Controller
+class AuthController extends Controller
 {
 
-    public function __construct($route = "/"){
-        Console::log("DefaultController Created");
-
+    public function __construct($route = "/")
+    {
+        Console::log("Auth Controller Created");
         switch ($route){
             case "/":
                 Console::log($route);
-                include VIEWS."default".DIRECTORY_SEPARATOR."index.php";
+                include VIEWS."auth".DIRECTORY_SEPARATOR."index.php";
                 break;
             case "/login":
                 Console::log($route);
-                include VIEWS."default".DIRECTORY_SEPARATOR."login.php";
+                include VIEWS."auth".DIRECTORY_SEPARATOR."login.php";
                 break;
         }
     }
-
 
 }
