@@ -30,7 +30,7 @@ class AuthController extends Controller
                     if($this->request->getErrors() != []) {
                         Console::log(json_encode($this->request->getErrors()));
                     }else{
-                        echo "Request succeeded";
+                        echo "Request Validated";
                     }
                     break;
                 case "/logout":
