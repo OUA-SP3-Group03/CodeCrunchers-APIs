@@ -7,9 +7,11 @@
 
 namespace app\controllers;
 
+use app\core\Console;
 use app\core\Controller;
 use app\core\Gate;
 use app\core\Request;
+use app\rules\LoginRequestRule;
 
 class AuthController extends Controller
 {
@@ -23,17 +25,22 @@ class AuthController extends Controller
         }else {
             switch ($route) {
                 case "/login":
-                    echo "Authentication Login end point **** ADD LATER ****";
-                    print_r($request->getPostData());
+                    //echo "Authentication Login end point **** ADD LATER **** \n";
+                    $this->request->validate(new LoginRequestRule());
+                    if($this->request->getErrors() != []) {
+                        Console::log(json_encode($this->request->getErrors()));
+                    }else{
+                        echo "Request succeeded";
+                    }
                     break;
                 case "/logout":
-                    echo "Authentication Logout **** ADD LATER ****";
+                    echo "Authentication Logout **** ADD LATER ****\n";
                     break;
                 case "/check":
-                    echo "Authentication Token Check **** ADD LATER ****";
+                    echo "Authentication Token Check **** ADD LATER ****\n";
                     break;
                 case "/signup":
-                    echo "Authentication Signup end point **** ADD LATER ****";
+                    echo "Authentication Signup end point **** ADD LATER ****\n";
             }
         }
     }
