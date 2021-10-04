@@ -7,6 +7,7 @@
 
 namespace app\routes;
 
+use app\core\Console;
 use app\core\RouteGroup;
 use app\providers\RouteServiceProvider;
 
@@ -16,7 +17,12 @@ class Api
 
     public function __construct(RouteServiceProvider $routeServiceProvider)
     {
-        //TODO add later
+        $auth = new RouteGroup();
+        $auth->addRoute("/login","AuthController");
+        $auth->addRoute("/logout","AuthController");
+        $auth->addRoute("/check","AuthController");
+        $auth->addRoute("/signup","AuthController");
+        $routeServiceProvider->addApiRouteGroup("/auth",$auth);
 
     }
 
