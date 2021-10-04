@@ -61,13 +61,15 @@ class RouteServiceProvider extends Provider
 
             }else{
                 //load default routes
-                $selectedGroup = $this->webRouteGroups["/"];
-                if(array_key_exists($url[0],$selectedGroup->getRoutes())){
+                if (array_key_exists("/", $this->webRouteGroups)) {
+                    $selectedGroup = $this->webRouteGroups["/"];
+                    if (array_key_exists($url[0], $selectedGroup->getRoutes())) {
 
-                    $namespace = "app\controllers\ ";
-                    $namespace = substr($namespace,0,-1);
-                    $callback = $namespace.$selectedGroup->getRoutes()[$url[0]];
-                    return new $callback($url[0]);
+                        $namespace = "app\controllers\ ";
+                        $namespace = substr($namespace, 0, -1);
+                        $callback = $namespace . $selectedGroup->getRoutes()[$url[0]];
+                        return new $callback($url[0]);
+                    }
                 }
             }
         }
@@ -100,8 +102,9 @@ class RouteServiceProvider extends Provider
                         return new $callback("/");
                     }
 
-                }else{
+                }else {
                     //load default routes
+                    if (array_key_exists("/", $this->apiRouteGroups)) {
                         $selectedGroup = $this->apiRouteGroups["/"];
                         if (array_key_exists($url[0], $selectedGroup->getRoutes())) {
 
@@ -111,6 +114,7 @@ class RouteServiceProvider extends Provider
                             return new $callback($url[0]);
                         }
                     }
+                }
 
             }
             return null;
