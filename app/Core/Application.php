@@ -24,7 +24,7 @@ class Application
         //call create Request Method
         $this->createRequest();
         //create the route service provider
-        $this->routeServiceProvider = new RouteServiceProvider();
+        $this->routeServiceProvider = new RouteServiceProvider($this->request);
         //add the routes from the API and Web files by creating a new instance of each of them
         new Web($this->routeServiceProvider);
         new Api($this->routeServiceProvider);
@@ -33,16 +33,14 @@ class Application
         //firstly we check for a web or api call, if it's not the api then load the web else process the api
         if($proccesedUrl[0] != "/api") {
             //check if the response is a 404 if not then call the render function else display 404
-            if (!$this->routeServiceProvider->loadRoute($proccesedUrl)) {
-                echo Gate::getError(404);
-                http_response_code(404);
-            }
+            $result = $this->routeServiceProvider->loadRoute($proccesedUrl);
         }else{
             $apiUrl = array_slice($proccesedUrl,1,count($proccesedUrl)-1,);
-            if (!$this->routeServiceProvider->loadApiRoute($apiUrl)) {
-                echo Gate::getError(404);
-                http_response_code(404);
-            }
+            $result = $this->routeServiceProvider->loadApiRoute($apiUrl);
+        }
+        if (!$result) {
+            echo Gate::getError(404);
+            http_response_code(404);
         }
     }
 
