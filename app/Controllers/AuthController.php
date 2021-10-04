@@ -8,24 +8,29 @@
 namespace app\controllers;
 
 use app\core\Controller;
+use app\core\Gate;
 
 class AuthController extends Controller
 {
 
     public function __construct($route = "/")
     {
-        switch ($route){
-            case "/login":
-                echo "Authentication Login end point **** ADD LATER ****";
-                break;
-            case "/logout":
-                echo "Authentication Logout **** ADD LATER ****";
-                break;
-            case "/check":
-                echo "Authentication Token Check **** ADD LATER ****";
-                break;
-            case "/signup":
-                echo "Authentication Signup end point **** ADD LATER ****";
+        if(Gate::post()) {
+            echo Gate::getError(Gate::post());
+        }else {
+            switch ($route) {
+                case "/login":
+                    echo "Authentication Login end point **** ADD LATER ****";
+                    break;
+                case "/logout":
+                    echo "Authentication Logout **** ADD LATER ****";
+                    break;
+                case "/check":
+                    echo "Authentication Token Check **** ADD LATER ****";
+                    break;
+                case "/signup":
+                    echo "Authentication Signup end point **** ADD LATER ****";
+            }
         }
     }
 
