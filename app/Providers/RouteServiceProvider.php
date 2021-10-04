@@ -7,7 +7,7 @@
 
 namespace app\providers;
 
-use app\core\Console;
+use app\core\Request;
 use app\core\RouteGroup;
 use app\core\Provider;
 
@@ -15,10 +15,12 @@ class RouteServiceProvider extends Provider
 {
     private array $webRouteGroups;
     private array $apiRouteGroups;
+    private Request $request;
 
-    public function __construct(){
+    public function __construct(Request $request){
         $this->apiRouteGroups = [];
         $this->webRouteGroups = [];
+        $this->request = $request;
     }
 
     //****  ADD A WEB ROUTE GROUP ****\\
@@ -49,14 +51,14 @@ class RouteServiceProvider extends Provider
                     $namespace = "app\controllers\ ";
                     $namespace = substr($namespace,0,-1);
                     $callback = $namespace.$selectedGroup->getRoutes()[$url[1]];
-                    return new $callback($url[1]);
+                    return new $callback($url[1], $this->request);
 
                 //else we need to check to see if a default index route is valid, if so load it
                 }else if(array_key_exists("/",$selectedGroup->getRoutes()) && !isset($url[1])){
                     $namespace = "app\controllers\ ";
                     $namespace = substr($namespace,0,-1);
                     $callback = $namespace.$selectedGroup->getRoutes()["/"];
-                    return new $callback("/");
+                    return new $callback("/", $this->request);
                 }
 
             }else{
@@ -68,7 +70,7 @@ class RouteServiceProvider extends Provider
                         $namespace = "app\controllers\ ";
                         $namespace = substr($namespace, 0, -1);
                         $callback = $namespace . $selectedGroup->getRoutes()[$url[0]];
-                        return new $callback($url[0]);
+                        return new $callback($url[0], $this->request);
                     }
                 }
             }
@@ -92,14 +94,14 @@ class RouteServiceProvider extends Provider
                         $namespace = "app\controllers\ ";
                         $namespace = substr($namespace,0,-1);
                         $callback = $namespace.$selectedGroup->getRoutes()[$url[1]];
-                        return new $callback($url[1]);
+                        return new $callback($url[1],$this->request);
 
                         //else we need to check to see if a default index route is valid, if so load it
                     }else if(array_key_exists("/",$selectedGroup->getRoutes()) && !isset($url[1])){
                         $namespace = "app\controllers\ ";
                         $namespace = substr($namespace,0,-1);
                         $callback = $namespace.$selectedGroup->getRoutes()["/"];
-                        return new $callback("/");
+                        return new $callback("/",$this->request);
                     }
 
                 }else {
@@ -111,7 +113,7 @@ class RouteServiceProvider extends Provider
                             $namespace = "app\controllers\ ";
                             $namespace = substr($namespace, 0, -1);
                             $callback = $namespace . $selectedGroup->getRoutes()[$url[0]];
-                            return new $callback($url[0]);
+                            return new $callback($url[0], $this->request);
                         }
                     }
                 }
