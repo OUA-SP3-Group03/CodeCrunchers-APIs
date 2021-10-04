@@ -5,5 +5,4 @@
  * Last Updated - 4/10/2021
  */
 
-?>
-<h1>Auth / index</h1>
+//TODO add HTML header code
