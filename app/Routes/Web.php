@@ -7,7 +7,6 @@
 
 namespace app\routes;
 
-use app\core\Console;
 use app\core\RouteGroup;
 use app\providers\RouteServiceProvider;
 
@@ -26,14 +25,14 @@ class Web
         $routeServiceProvider->addRouteGroup("/",$default);
 
         $test = new RouteGroup();
-        $test->addRoute("/","123");
-        $test->addRoute("/meme","123");
-        $test->addRoute("/jack","123");
+        $test->addRoute("/","TestController");
+        $test->addRoute("/meme","TestController");
+        $test->addRoute("/jack","TestController");
         $routeServiceProvider->addRouteGroup("/test",$test);
 
         $auth = new RouteGroup();
-        $auth->addRoute("/","test");
-        $auth->addRoute("/login","123");
+        $auth->addRoute("/","AuthController");
+        $auth->addRoute("/login","AuthController");
         $routeServiceProvider->addRouteGroup("/auth",$auth);
 
 
