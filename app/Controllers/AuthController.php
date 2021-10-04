@@ -7,7 +7,6 @@
 
 namespace app\controllers;
 
-use app\core\Console;
 use app\core\Controller;
 
 class AuthController extends Controller
@@ -15,16 +14,18 @@ class AuthController extends Controller
 
     public function __construct($route = "/")
     {
-        Console::log("Auth Controller Created");
         switch ($route){
-            case "/":
-                Console::log($route);
-                include VIEWS."auth".DIRECTORY_SEPARATOR."index.php";
-                break;
             case "/login":
-                Console::log($route);
-                include VIEWS."auth".DIRECTORY_SEPARATOR."login.php";
+                echo "Authentication Login end point **** ADD LATER ****";
                 break;
+            case "/logout":
+                echo "Authentication Logout **** ADD LATER ****";
+                break;
+            case "/check":
+                echo "Authentication Token Check **** ADD LATER ****";
+                break;
+            case "/signup":
+                echo "Authentication Signup end point **** ADD LATER ****";
         }
     }
 
