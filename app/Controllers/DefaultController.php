@@ -10,17 +10,20 @@ namespace app\controllers;
 use app\core\Console;
 use app\core\Controller;
 use app\core\Gate;
+use app\core\Request;
 
 class DefaultController extends Controller
 {
 
-    public function __construct($route = "/")
+    public function __construct($route = "/", Request $request = null)
     {
+        $this->request = $request;
         if (Gate::get()) {
             echo Gate::getError(Gate::get());
         } else {
             switch ($route) {
                 case "/":
+                    var_dump($request);
                     include VIEWS . "default" . DIRECTORY_SEPARATOR . "index.php";
                     break;
                 case "/login":
