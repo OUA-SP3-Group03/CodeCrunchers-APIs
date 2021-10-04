@@ -23,7 +23,6 @@ class DefaultController extends Controller
         } else {
             switch ($route) {
                 case "/":
-                    var_dump($request);
                     include VIEWS . "default" . DIRECTORY_SEPARATOR . "index.php";
                     break;
                 case "/login":
