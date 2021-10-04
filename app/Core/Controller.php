@@ -10,4 +10,7 @@ namespace app\core;
 class Controller
 {
 
+    protected Request $request;
+
+
 }
