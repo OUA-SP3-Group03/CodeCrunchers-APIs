@@ -5,8 +5,8 @@
  * Last Updated - 4/10/2021
  */
 
-include VIEWS."header.php";
-include VIEWS."navbar.php";
+include VIEWS . "Header.php";
+include VIEWS . "Navbar.php";
 ?>
 
 <div class="container">
