@@ -31,9 +31,6 @@ class DefaultController extends Controller
                 case "/register":
                     include VIEWS . "default" . DIRECTORY_SEPARATOR . "register.php";
                     break;
-                case "/help":
-                    include VIEWS . "default" . DIRECTORY_SEPARATOR . "help.php";
-                    break;
                 case "/scores":
                     include VIEWS . "default" . DIRECTORY_SEPARATOR . "scores.php";
                     break;
