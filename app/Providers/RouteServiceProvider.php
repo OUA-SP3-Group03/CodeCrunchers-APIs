@@ -32,18 +32,23 @@ class RouteServiceProvider extends Provider
     }
 
     //****  LOAD ROUTE FUNCTION TO CHECK THE ROUTE GROUPS AND ROUTES FOR A URL MATCH ****\\
-    public function loadRoute(array $url)
+    public function loadRoute(array $url, bool $api = false)
     {
 
+        if($api == true){
+            $routeGroups = $this->apiRouteGroups;
+        }else{
+            $routeGroups = $this->webRouteGroups;
+        }
 
         //first check if we have an url string set at position 0, if so proceed
         if (isset($url[0])) {
 
             //now check if the array key exists in the route groups, if so proceed to the next check
-            if (array_key_exists($url[0], $this->webRouteGroups)) {
+            if (array_key_exists($url[0], $routeGroups)) {
 
                 //set the selected route group to a local variable
-                $selectedGroup = $this->webRouteGroups[$url[0]];
+                $selectedGroup = $routeGroups[$url[0]];
 
                 //check if the next url string is in the array of routes as a key
                 if(isset($url[1]) && array_key_exists($url[1],$selectedGroup->getRoutes())){
@@ -62,8 +67,8 @@ class RouteServiceProvider extends Provider
 
             }else{
                 //load default routes
-                if (array_key_exists("/", $this->webRouteGroups)) {
-                    $selectedGroup = $this->webRouteGroups["/"];
+                if (array_key_exists("/", $routeGroups)) {
+                    $selectedGroup = $routeGroups["/"];
                     if (array_key_exists($url[0], $selectedGroup->getRoutes())) {
 
                         $namespace = "app\controllers\ ";
@@ -74,50 +79,6 @@ class RouteServiceProvider extends Provider
                 }
             }
         }
-            return null;
-        }
-
-        //**** LOAD API ROUTE AND CHECK FOR CONTROLLER & ROUTE MATCHES RETURNS THE CONTROLLER ****\\
-        public function  loadApiRoute(array $url){
-            //first check if we have an url string set at position 0, if so proceed
-            if (isset($url[0])) {
-
-                //now check if the array key exists in the route groups, if so proceed to the next check
-                if (array_key_exists($url[0], $this->apiRouteGroups)) {
-
-                    //set the selected route group to a local variable
-                    $selectedGroup = $this->apiRouteGroups[$url[0]];
-
-                    //check if the next url string is in the array of routes as a key
-                    if(isset($url[1]) && array_key_exists($url[1],$selectedGroup->getRoutes())){
-                        $namespace = "app\controllers\ ";
-                        $namespace = substr($namespace,0,-1);
-                        $callback = $namespace.$selectedGroup->getRoutes()[$url[1]];
-                        return new $callback($url[1],$this->request);
-
-                        //else we need to check to see if a default index route is valid, if so load it
-                    }else if(array_key_exists("/",$selectedGroup->getRoutes()) && !isset($url[1])){
-                        $namespace = "app\controllers\ ";
-                        $namespace = substr($namespace,0,-1);
-                        $callback = $namespace.$selectedGroup->getRoutes()["/"];
-                        return new $callback("/",$this->request);
-                    }
-
-                }else {
-                    //load default routes
-                    if (array_key_exists("/", $this->apiRouteGroups)) {
-                        $selectedGroup = $this->apiRouteGroups["/"];
-                        if (array_key_exists($url[0], $selectedGroup->getRoutes())) {
-
-                            $namespace = "app\controllers\ ";
-                            $namespace = substr($namespace, 0, -1);
-                            $callback = $namespace . $selectedGroup->getRoutes()[$url[0]];
-                            return new $callback($url[0], $this->request);
-                        }
-                    }
-                }
-
-            }
             return null;
         }
     }
