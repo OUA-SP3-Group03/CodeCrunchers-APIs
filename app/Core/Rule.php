@@ -20,4 +20,10 @@ abstract class Rule
     {
         return json_encode($this->rules);
     }
+
+    //getter for the database table name, used by the request class in validation
+    public function getDatabaseTableName(): string
+    {
+        return $this->databaseTable;
+    }
 }
