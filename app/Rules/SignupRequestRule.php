@@ -20,6 +20,9 @@ class SignupRequestRule extends Rule
         $this->rules["first_name"] = ["required" => true];
         $this->rules["last_name"] = ["required" => true];
         $this->rules["password"] = ["required" => true];
+        //set the database table, used for unique check
+        $this->databaseTable = "users";
+
     }
 
 }
