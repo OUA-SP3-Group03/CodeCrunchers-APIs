@@ -28,6 +28,15 @@ class DefaultController extends Controller
                 case "/login":
                     include VIEWS . "default" . DIRECTORY_SEPARATOR . "login.php";
                     break;
+                case "/register":
+                    include VIEWS . "default" . DIRECTORY_SEPARATOR . "register.php";
+                    break;
+                case "/help":
+                    include VIEWS . "default" . DIRECTORY_SEPARATOR . "help.php";
+                    break;
+                case "/scores":
+                    include VIEWS . "default" . DIRECTORY_SEPARATOR . "scores.php";
+                    break;
             }
         }
     }
