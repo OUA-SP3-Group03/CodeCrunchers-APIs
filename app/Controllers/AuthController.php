@@ -12,6 +12,7 @@ use app\core\Controller;
 use app\core\Gate;
 use app\core\Request;
 use app\rules\LoginRequestRule;
+use app\rules\SignupRequestRule;
 
 class AuthController extends Controller
 {
@@ -40,7 +41,12 @@ class AuthController extends Controller
                     echo "Authentication Token Check **** ADD LATER ****\n";
                     break;
                 case "/signup":
-                    echo "Authentication Signup end point **** ADD LATER ****\n";
+                    $this->request->validate(new SignupRequestRule());
+                    if($this->request->getErrors() != []){
+                        Console::log(json_encode($this->request->getErrors()));
+                    }else{
+                        echo "Request Validated";
+                    }
             }
         }
     }
