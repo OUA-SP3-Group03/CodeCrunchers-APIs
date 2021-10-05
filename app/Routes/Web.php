@@ -20,18 +20,13 @@ class Web
         //next add the routes we want to the group, firstly add the prefix, then the relevant controller
         $default->addRoute("/","DefaultController");
         $default->addRoute("/login","DefaultController");
-        $default->addRoute("/signup","DefaultController");
-        $default->addRoute("/account","DefaultController");
+        $default->addRoute("/register","DefaultController");
         $default->addRoute("/help","DefaultController");
+        $default->addRoute("/scores","DefaultController");
+
+        $default->addRoute("/account","DefaultController");
         //finally, register the route group with the core route service provider using the correct parent prefix for this group
         $routeServiceProvider->addRouteGroup("/",$default);
-
-        $test = new RouteGroup();
-        $test->addRoute("/","TestController");
-        $test->addRoute("/meme","TestController");
-        $test->addRoute("/jack","TestController");
-        $routeServiceProvider->addRouteGroup("/test",$test);
-
     }
 
 }
