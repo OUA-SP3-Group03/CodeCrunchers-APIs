@@ -39,10 +39,15 @@ abstract class Table
     }
 
     //gets the row with a matching primary key
-    public function getRowByPK($value): mysqli_result|array
+    public function getRowByPK($value)
     {
         //returns the [0] index as currently mysql will return an array with in an array, this removes the outer array
-        return Database::fetch("SELECT * FROM $this->tableName WHERE $this->primaryKey='$value'")[0];
+        $result = Database::fetch("SELECT * FROM $this->tableName WHERE $this->primaryKey='$value'");
+        if($result != null) {
+            return $result[0];
+        }else{
+            return false;
+        }
     }
 
     //gets a row by a specific column value name, accepts column name and value
@@ -64,21 +69,47 @@ abstract class Table
     }
 
     //create a row in the table
-    public function createRow(array $values): array
+    public function createRow(array $values): bool
     {
 
         //step 1 check to see if all the columns are provided
-        $result = [];
+        $result = true;
             foreach ($this->columns as $column){
 
                 if(!array_key_exists($column,$values)){
-                    $result[$column] = "missing";
+                   $result = false;
                 }
             }
 
-            if($result == []){
-                $result["status"]="success";
+            //if the result has no missing columns then proceed to creating the sql query
+            if($result){
+                //step 1 we create the start of the columns and new values array with the opening bracket
+                $columns = "(";
+                $newValues = "(";
+                //next we loop over our columns and new values and add them to the string seperated by commas
+                foreach ($values as $column=>$value){
+                    $columns.=$column.",";
+                    $newValues.="'".$value."',";
+                }
+                //finally, we trim the final spare comma of each of the strings
+                $newValues = substr($newValues,0,-1);
+                $columns = substr($columns,0,-1);
+                //next we close the final bracket and add the two strings to the sql query
+                $columns.=")";
+                $newValues.=")";
+
+                //build query
+                $sql = "INSERT INTO $this->tableName ".$columns."VALUES".$newValues;
+
+                //check if it succeeded or failed
+                if(Database::query($sql)){
+                    $result = true;
+                }else{
+                    $result = false;
+                }
+
             }
+            //finally, return the result
             return $result;
         }
 
