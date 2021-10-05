@@ -21,12 +21,17 @@ class Web
         $default->addRoute("/","DefaultController");
         $default->addRoute("/login","DefaultController");
         $default->addRoute("/register","DefaultController");
-        $default->addRoute("/help","DefaultController");
         $default->addRoute("/scores","DefaultController");
-
         $default->addRoute("/account","DefaultController");
         //finally, register the route group with the core route service provider using the correct parent prefix for this group
         $routeServiceProvider->addRouteGroup("/",$default);
+
+        $help = new RouteGroup();
+        $help->addRoute("/","HelpController");
+        $help->addRoute("/tos","HelpController");
+        $help->addRoute("/faq","HelpController");
+        $routeServiceProvider->addRouteGroup("/help",$help);
     }
+
 
 }
