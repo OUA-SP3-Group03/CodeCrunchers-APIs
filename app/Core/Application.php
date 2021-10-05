@@ -36,7 +36,7 @@ class Application
             $result = $this->routeServiceProvider->loadRoute($proccesedUrl);
         }else{
             $apiUrl = array_slice($proccesedUrl,1,count($proccesedUrl)-1,);
-            $result = $this->routeServiceProvider->loadApiRoute($apiUrl);
+            $result = $this->routeServiceProvider->loadRoute($apiUrl, true);
         }
         if (!$result) {
             echo Gate::getError(404);
