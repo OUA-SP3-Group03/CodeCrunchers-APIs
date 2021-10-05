@@ -9,6 +9,6 @@ namespace app\core;
 
 class Provider
 {
-    //TODO add parent code
+    protected Request $request;
 
 }

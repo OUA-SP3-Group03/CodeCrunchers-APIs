@@ -15,7 +15,6 @@ class RouteServiceProvider extends Provider
 {
     private array $webRouteGroups;
     private array $apiRouteGroups;
-    private Request $request;
 
     public function __construct(Request $request){
         $this->apiRouteGroups = [];
