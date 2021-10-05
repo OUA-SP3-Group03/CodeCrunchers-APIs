@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright Jack Harris
+ * Peninsula Interactive - CodeCrunchers
+ * Last Updated - 4/10/2021
+ */
+
+namespace app\routes;
+
+use app\core\Console;
+use app\core\RouteGroup;
+use app\providers\RouteServiceProvider;
+
+class Api
+{
+    //**** API CLASS Contains all the route groups relating to the API connection ****\\
+
+    public function __construct(RouteServiceProvider $routeServiceProvider)
+    {
+        $auth = new RouteGroup();
+        $auth->addRoute("/login","AuthController");
+        $auth->addRoute("/logout","AuthController");
+        $auth->addRoute("/check","AuthController");
+        $auth->addRoute("/signup","AuthController");
+        $routeServiceProvider->addApiRouteGroup("/auth",$auth);
+
+    }
+
+}
