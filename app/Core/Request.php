@@ -25,8 +25,8 @@ class Request
                             $this->errors[$ruleSingleKey] = "Required validation failed";
                         }
                     }else if($ruleSingleKey == "unique"){
-                        if(!$this->unique($this->postData[$key])){
-                            $this->errors[$ruleSingleKey] = "Unique validation failed";
+                        if(!$this->unique($this->postData[$key],$key,$rules->getDatabaseTableName())){
+                            $this->errors[$key] = "Unique validation failed";
                         }
                     }else if($ruleSingleKey == "email"){
                         if(!$this->email($this->postData[$key])){
@@ -57,15 +57,32 @@ class Request
 
     //**** UNIQUE CONSTRAIN FUNCTION ****\\
     //Checks the database to see if the value is going to be unique, throws false if the value is present in the specified table
-    private function unique(String $value): bool
+    private function unique(String $value, String $column ,String $tableName): bool
     {
-        //TODO add code later when ORM is complete
-        return true;
+        //set the namespace for the database class
+        //ERROR: a space is needed after the black slash, this needs to be removed in the next line
+        $namespace = "\app\database\ ";
+        //remove the space
+        $namespace = substr($namespace,0,-1);
+
+        //combine the two into the table string
+        $table = $namespace.$tableName;
+        //create the object and set it to the table variable
+        $table = new $table;
+
+        //get the row by the specified column, it does not yield a response return true
+        if($table->getRowByValue($column,$value) != null){
+            return false;
+            //else it means we have no value matching it, we should return true to allow the storing of the data
+        }else{
+            return true;
+        }
     }
 
     //**** EMAIL CONSTRAIN FUNCTION ****\\
     //uses PHP built-in function to check if an email meets the requirements of being an email
-    private function email(String $value){
+    private function email(String $value): bool
+    {
         if(filter_var($value, FILTER_VALIDATE_EMAIL)){
             return true;
         }
