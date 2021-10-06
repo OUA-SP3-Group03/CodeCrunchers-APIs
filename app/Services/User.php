@@ -7,7 +7,6 @@
 
 namespace app\services;
 
-use app\core\Console;
 use app\core\Request;
 use app\core\Service;
 use app\database\users;
