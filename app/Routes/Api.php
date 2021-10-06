@@ -24,6 +24,12 @@ class Api
         $auth->addRoute("/signup","AuthController");
         $routeServiceProvider->addApiRouteGroup("/auth",$auth);
 
+
+        $score = new RouteGroup();
+        $score->addRoute("/add","ScoreController");
+        $score->addRoute("/get","ScoreController");
+        $routeServiceProvider->addApiRouteGroup("/score",$score);
+
     }
 
 }
