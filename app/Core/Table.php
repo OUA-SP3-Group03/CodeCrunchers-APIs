@@ -7,8 +7,6 @@
 
 namespace app\core;
 
-use mysqli_result;
-
 abstract class Table
 {
 
@@ -109,8 +107,6 @@ abstract class Table
 
                 //build query
                 $sql = "INSERT INTO $this->tableName ".$columns." VALUES ".$newValues;
-
-                Console::log($sql);
 
                 //check if it succeeded or failed
                 if(Database::query($sql)){
