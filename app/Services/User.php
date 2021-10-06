@@ -7,13 +7,25 @@
 
 namespace app\services;
 
+use app\core\Console;
 use app\core\Request;
 use app\core\Service;
 use app\database\users;
 
 class User extends Service
 {
+    //variable mapping
+    //password map var is private as no other methods should call it
+    private static int $password = 5;
+    //public accessible array mappings
+    public static int $user_id = 1;
+    public static int $username = 1;
+    public static int $first_name = 2;
+    public static int $last_name = 3;
+    public static int $email = 4;
 
+
+    //**** CREATE USER FUNCTION ****\\
     public static function create(Request $request): bool
     {
         //create instance of the users' database table
@@ -40,6 +52,25 @@ class User extends Service
 
         //return the result of the database class
         return $users_db->createRow($values);
+    }
+
+    //**** LOGIN USER METHOD ****\\
+    public static function login(Request $request): ?array
+    {
+        //create instance of the user table
+        $user_db = new users();
+        //try getting a user from the table based on the email provided, save the result as $result
+        $result = $user_db->getRowByValue("email", $request->getPostData()["email"]);
+        //check if the result is not null, if its null it failed, else it has a result
+        if($result != null){
+            //now check if the password provided matches the password we have on file, if so success is represented as 0
+            if(strcmp($result[self::$password],$request->getPostData()["password"]) == 0){
+                //finally, return the result if valid
+                return $result;
+            }
+        }
+            //returns null if no login succeeds
+            return null;
     }
 
 }
