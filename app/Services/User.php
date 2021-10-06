@@ -46,7 +46,7 @@ class User extends Service
             "first_name" => $request->getPostData()['first_name'],
             "last_name" => $request->getPostData()['last_name'],
             "email" => $request->getPostData()['email'],
-            "password" => $request->getPostData()['password'],
+            "password" => password_hash($request->getPostData()['password'],PASSWORD_DEFAULT),
             "registration_date" => time()
         ];
 
@@ -64,7 +64,7 @@ class User extends Service
         //check if the result is not null, if its null it failed, else it has a result
         if($result != null){
             //now check if the password provided matches the password we have on file, if so success is represented as 0
-            if(strcmp($result[self::$password],$request->getPostData()["password"]) == 0){
+            if(password_verify($request->getPostData()["password"],$result[self::$password])){
                 //finally, return the result if valid
                 return $result;
             }
