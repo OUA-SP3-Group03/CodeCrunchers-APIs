@@ -33,7 +33,8 @@ class AuthController extends Controller
                     $this->request->validate(new LoginRequestRule());
                     //check for any requests, if there are requests console log them
                     if($this->request->getErrors() != []) {
-                        Console::log(json_encode($this->request->getErrors()));
+                       // Console::log(json_encode($this->request->getErrors()));
+                        echo false;
                     }else{
                         //now we get the result of the user login and pass it the request
                         $result = User::login($this->request);
@@ -43,11 +44,10 @@ class AuthController extends Controller
                             try {
                                 //we set the token response to a new token and pass it the user id from the valid login as well as the token type from the request, this is either "web" or "game"
                                 $token_response = Token::create($this->request->getPostData()["type"], $result[User::$user_id]);
-
                                 //now we process the return for a web type
                                 if($request->getPostData()["type"] == "web"){
                                     //echo true for success
-                                    echo true;
+                                   echo true;
                                     //create the cookie for the web
                                     Cookie::create("codecrunchers",$token_response["token"],7);
                                 }else{
