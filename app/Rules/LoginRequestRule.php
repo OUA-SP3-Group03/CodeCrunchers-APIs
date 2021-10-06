@@ -18,6 +18,8 @@ class LoginRequestRule extends Rule
         //login request rule, this is the rule that validates our login request using this criteria
         $this->rules["email"] = ["required" => true, "email" => true];
         $this->rules["password"] = ["required" => true];
+        $this->rules["type"] = ["required" => true];
+
         //set the database table
         $this->databaseTable = "users";
     }
