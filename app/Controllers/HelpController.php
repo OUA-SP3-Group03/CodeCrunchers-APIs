@@ -19,8 +19,6 @@ class HelpController extends Controller
     {
         $this->request = $request;
         if (Gate::get()) {
-            echo Gate::getError(Gate::get());
-        } else {
             switch ($route) {
                 case "/":
                     include VIEWS . "help" . DIRECTORY_SEPARATOR . "index.php";
@@ -32,6 +30,8 @@ class HelpController extends Controller
                     include VIEWS . "help" . DIRECTORY_SEPARATOR . "faq.php";
                     break;
             }
+        }else{
+            Gate::echo(405);
         }
     }
 
