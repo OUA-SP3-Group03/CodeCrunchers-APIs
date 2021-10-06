@@ -29,7 +29,7 @@ class Token extends  Service
      * @throws Exception
      */
     //**** CREATE TOKEN STATIC FUNCTION ****\\
-    public static function create(String $type, int $user_id): bool{
+    public static function create(String $type, int $user_id): ?array{
 
         //outcome variable for this function, returns at end of function as true or false.
         $outcome = false;
@@ -52,10 +52,10 @@ class Token extends  Service
             ];
             //check if it succeeded or not
             if($database->createRow($values)){
-                $outcome = true;
+                return ["token" => $database->getRowByPK($user_id)[self::$token]];
+            }else {
+                return null;
             }
-
-            return $outcome;
     }
 
     /**
@@ -71,6 +71,31 @@ class Token extends  Service
         }
 
         return $token;
+    }
+
+    //**** VALIDATE TOKEN FUNCTION ****\\
+    //validates if a token has expired or not, this function will automatically delete tokens that are past expiry
+    public static function validate(String $token, String $type): bool
+    {
+        //create the outcome variable
+        $outcome = false;
+        //set the database for this validation, assumed the type is web by default
+        $database = match ($type) {
+            "game" => new tokens_game(),
+            default => new tokens_web(),
+        };
+        //step 1 check if the token is in the database
+        $result = $database->getRowByValue("token", $token);
+        if($result != null){
+            //next if it is a real token check the expiry
+            if($result[self::$expiry] >= time()){
+                $outcome = true;
+            }else{
+                $database->deleteRowByPK($result[self::$user_id]);
+            }
+        }
+
+        return $outcome;
     }
 
 }
