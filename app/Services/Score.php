@@ -7,7 +7,6 @@
 
 namespace app\services;
 
-use app\core\Console;
 use app\core\Request;
 use app\core\Service;
 use app\database\scores;
@@ -28,6 +27,7 @@ class Score extends Service
             $score_id = rand(0,10**6);
         }
 
+        //make sure to cast integers before passing values array
         $values = [
             "id" => $score_id,
             "user_id" => (int)$request->getPostData()["user_id"],
@@ -36,8 +36,7 @@ class Score extends Service
             "level" => $request->getPostData()["level"]
         ];
 
-        Console::log(json_encode($values));
-        Console::log(json_encode($score_db->getAllRows()));
+        //return the true or false result
         return $score_db->createRow($values);
     }
 
