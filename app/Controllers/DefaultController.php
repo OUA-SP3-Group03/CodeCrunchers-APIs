@@ -41,11 +41,7 @@ class DefaultController extends Controller
                     }
                     break;
                 case "/scores":
-                    if(Gate::loggedIn()){
                         include VIEWS . "default" . DIRECTORY_SEPARATOR . "scores.php";
-                    }else {
-                        Gate::echo(403);
-                    }
                     break;
             }
         }else{
