@@ -11,9 +11,9 @@ use app\core\Console;
 use app\core\Controller;
 use app\core\Gate;
 use app\core\Request;
-use app\core\User;
 use app\rules\LoginRequestRule;
 use app\rules\SignupRequestRule;
+use app\services\User;
 
 class AuthController extends Controller
 {
@@ -49,8 +49,8 @@ class AuthController extends Controller
                     if($this->request->getErrors() != []){
                         Console::log(json_encode($this->request->getErrors()));
                     }else{
-                        $userController = new User();
-                       $result =$userController->create($this->request);
+
+                       $result = User::create($this->request);
                        if($result){
                            echo "user created";
                        }
