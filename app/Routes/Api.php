@@ -7,7 +7,6 @@
 
 namespace app\routes;
 
-use app\core\Console;
 use app\core\RouteGroup;
 use app\providers\RouteServiceProvider;
 
