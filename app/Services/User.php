@@ -17,7 +17,7 @@ class User extends Service
     //password map var is private as no other methods should call it
     private static int $password = 5;
     //public accessible array mappings
-    public static int $user_id = 1;
+    public static int $user_id = 0;
     public static int $username = 1;
     public static int $first_name = 2;
     public static int $last_name = 3;
