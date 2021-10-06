@@ -17,6 +17,7 @@ class SignupRequestRule extends Rule
     {
         //signup request rule, this is the rule that we use when validating our signup requests before storing the request in the database
         $this->rules["email"] = ["required" => true, "unique" => true];
+        $this->rules["username"] = ["required" => true, "unique" => true];
         $this->rules["first_name"] = ["required" => true];
         $this->rules["last_name"] = ["required" => true];
         $this->rules["password"] = ["required" => true];
