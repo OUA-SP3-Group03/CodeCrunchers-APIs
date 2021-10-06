@@ -25,8 +25,6 @@ class AuthController extends Controller
         $this->request = $request;
 
         if(Gate::post()) {
-            echo Gate::getError(Gate::post());
-        }else {
             switch ($route) {
                 case "/login":
                     //validate request with login request rules
@@ -68,7 +66,7 @@ class AuthController extends Controller
                     echo "Authentication Logout **** ADD LATER ****\n";
                     break;
                 case "/check":
-                    echo "Authentication Token Check **** ADD LATER ****\n";
+                    //TODO add check code later
                     break;
                 case "/add":
 
@@ -89,6 +87,8 @@ class AuthController extends Controller
 
                     break;
             }
+        }else{
+            Gate::echo(405);
         }
     }
 
