@@ -46,7 +46,7 @@ class AuthController extends Controller
                 case "/check":
                     echo "Authentication Token Check **** ADD LATER ****\n";
                     break;
-                case "/signup":
+                case "/add":
 
                     //firstly to create the signup we validate the request with our signup rule
                     $this->request->validate(new SignupRequestRule());
