@@ -122,5 +122,17 @@ abstract class Table
             return $result;
         }
 
+        //**** DELETE ROW BY PRIVATE KEY ****\\
+        public function deleteRowByPK(String $value): bool{
+            $outcome = false;
 
+
+                $result = Database::query("DELETE FROM $this->tableName WHERE $this->primaryKey='$value'");
+                if($result){
+                    $outcome = true;
+                }
+
+
+            return $outcome;
+        }
 }
