@@ -32,7 +32,12 @@ class AuthController extends Controller
                     if($this->request->getErrors() != []) {
                         Console::log(json_encode($this->request->getErrors()));
                     }else{
-                        echo "Request Validated";
+                        $result = User::login($this->request);
+                        if($result != null){
+                            echo "Welcome ".$result[User::$first_name]." ".$result[User::$last_name];
+                        }else{
+                            echo "Login failed, please check your email and password and try again";
+                        }
                     }
                     break;
                 case "/logout":
@@ -49,7 +54,6 @@ class AuthController extends Controller
                     if($this->request->getErrors() != []){
                         Console::log(json_encode($this->request->getErrors()));
                     }else{
-
                        $result = User::create($this->request);
                        if($result){
                            echo "user created";
