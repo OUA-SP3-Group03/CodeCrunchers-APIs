@@ -16,9 +16,17 @@ abstract class Table
     protected String $tableName;
     protected String $primaryKey;
     protected array $columns;
+    private array $errors;
 
     //Abstract constructor to force child classes to create it
     public abstract function __construct();
+
+    //get the errors
+    public function getErrors():array
+    {
+        return $this->errors;
+    }
+
 
     //get table name
     public function getTableName(): string
@@ -78,6 +86,7 @@ abstract class Table
 
                 if(!array_key_exists($column,$values)){
                    $result = false;
+                   $this->errors[$column] = "not provided";
                 }
             }
 
@@ -99,13 +108,17 @@ abstract class Table
                 $newValues.=")";
 
                 //build query
-                $sql = "INSERT INTO $this->tableName ".$columns."VALUES".$newValues;
+                $sql = "INSERT INTO $this->tableName ".$columns." VALUES ".$newValues;
+
+                Console::log($sql);
 
                 //check if it succeeded or failed
                 if(Database::query($sql)){
                     $result = true;
                 }else{
                     $result = false;
+                    $this->errors["sql"] = "query failed";
+
                 }
 
             }
