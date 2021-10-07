@@ -15,7 +15,7 @@ class tokens_web extends Table
     public function __construct()
     {
         $this->tableName = "tokens_web";
-        $this->primaryKey = "user_id";
+        $this->primaryKey = "token";
         $this->columns = ["user_id","token","expiry"];
     }
 }
