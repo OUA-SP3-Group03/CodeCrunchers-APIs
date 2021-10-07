@@ -7,7 +7,7 @@
 
 namespace app\core;
 
-use app\services\Token;
+use app\services\TokenService;
 
 class Gate
 {
@@ -31,7 +31,7 @@ class Gate
     //Gate logged in only
     public static function loggedIn(): bool
     {
-        if(isset($_COOKIE["codecrunchers"]) && Token::validate($_COOKIE["codecrunchers"],"web")){
+        if(isset($_COOKIE["codecrunchers"]) && TokenService::validate($_COOKIE["codecrunchers"],"web")){
             return true;
         }else {
             return false;
