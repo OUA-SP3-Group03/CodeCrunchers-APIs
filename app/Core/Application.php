@@ -39,7 +39,7 @@ class Application
             $result = $this->routeServiceProvider->loadRoute($apiUrl, true);
         }
         if (!$result) {
-            echo Gate::getError(404);
+            Gate::echo(404);
             http_response_code(404);
         }
     }
