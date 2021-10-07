@@ -15,7 +15,7 @@ class tokens_game extends Table
     public function __construct()
     {
         $this->tableName = "tokens_game";
-        $this->primaryKey = "user_id";
+        $this->primaryKey = "token";
         $this->columns = ["user_id","token","expiry"];
     }
 }
