@@ -9,7 +9,7 @@ namespace app\services;
 
 use app\core\Service;
 
-class Cookie extends Service
+class CookieService extends Service
 {
 
     //**** CREATE COOKIE STATIC METHOD ****\\
