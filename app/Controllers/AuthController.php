@@ -81,6 +81,7 @@ class AuthController extends Controller
                                 echo json_encode(["success" => UserService::logoutGame($this->request->getPostData()["token"]), "redirect" => "/login"]);
                             }
                         }else{
+                            //else we echo the errors and a success false variable
                             echo json_encode(["success" => false, "errors" => $this->request->getErrors()]);
                         }
                     break;
