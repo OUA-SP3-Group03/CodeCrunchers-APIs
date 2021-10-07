@@ -11,7 +11,7 @@ use app\core\Request;
 use app\core\Service;
 use app\database\scores;
 
-class Score extends Service
+class ScoreService extends Service
 {
     public static function add(Request $request): bool
     {
