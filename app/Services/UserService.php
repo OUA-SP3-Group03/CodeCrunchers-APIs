@@ -9,9 +9,11 @@ namespace app\services;
 
 use app\core\Request;
 use app\core\Service;
+use app\database\tokens_game;
+use app\database\tokens_web;
 use app\database\users;
 
-class User extends Service
+class UserService extends Service
 {
     //variable mapping
     //password map var is private as no other methods should call it
@@ -70,6 +72,18 @@ class User extends Service
         }
             //returns null if no login succeeds
             return null;
+    }
+
+    //**** LOGOUT USER METHOD FOR WEB ****\\
+    public static function logoutWeb(String $token): bool
+    {
+        return TokenService::delete($token,new tokens_web());
+    }
+
+    //**** LOGOUT USER METHOD FOR GAME ****\\
+    public static function logoutGame(String $token):bool
+    {
+        return TokenService::delete($token, new tokens_game());
     }
 
 }
