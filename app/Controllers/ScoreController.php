@@ -12,7 +12,7 @@ use app\core\Controller;
 use app\core\Gate;
 use app\core\Request;
 use app\rules\AddScoreRequestRule;
-use app\services\Score;
+use app\services\ScoreService;
 
 class ScoreController extends Controller
 {
@@ -33,7 +33,7 @@ class ScoreController extends Controller
                     if($this->request->getErrors() != []){
                         Console::log(json_encode($this->request->getErrors()));
                     }else{
-                        $result = Score::add($this->request);
+                        $result = ScoreService::add($this->request);
                         if($result){
                             echo "score added";
                         }
