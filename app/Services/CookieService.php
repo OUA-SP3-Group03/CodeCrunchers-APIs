@@ -22,9 +22,9 @@ class CookieService extends Service
         $cookie_options = [
         'expires' => $expiry,
         'path' => '/',
-            'secure' => false,
-            'httponly' => false,
-            'samesite' => "Lax",
+        'secure' => false,
+        'httponly' => false,
+        'samesite' => "Lax",
         ];
         setcookie($cookie_name,$cookie_value,$cookie_options);
     }
@@ -32,7 +32,8 @@ class CookieService extends Service
     //**** DELETE COOKIE STATIC METHOD ****\\
     public static function delete(String $cookie_name){
         //delete cookie by setting its time to negative
-        setcookie($cookie_name,"",time()-3600);
+        //ERROR: Path, Domain, Name have to match to successfully delete a cookie
+        setcookie($cookie_name,"",time()-3600,'/');
         //returns nothing
     }
 
