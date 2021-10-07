@@ -7,7 +7,6 @@
 
 namespace app\routes;
 
-use app\core\Console;
 use app\core\RouteGroup;
 use app\providers\RouteServiceProvider;
 
@@ -21,8 +20,14 @@ class Api
         $auth->addRoute("/login","AuthController");
         $auth->addRoute("/logout","AuthController");
         $auth->addRoute("/check","AuthController");
-        $auth->addRoute("/signup","AuthController");
+        $auth->addRoute("/add","AuthController");
         $routeServiceProvider->addApiRouteGroup("/auth",$auth);
+
+
+        $score = new RouteGroup();
+        $score->addRoute("/add","ScoreController");
+        $score->addRoute("/get","ScoreController");
+        $routeServiceProvider->addApiRouteGroup("/score",$score);
 
     }
 

@@ -16,10 +16,11 @@ const ROUTES = ROOT.'app'.DIRECTORY_SEPARATOR.'Routes'.DIRECTORY_SEPARATOR;
 const VIEWS = ROOT.'app'.DIRECTORY_SEPARATOR.'Views'.DIRECTORY_SEPARATOR;
 const RULES = ROOT.'app'.DIRECTORY_SEPARATOR.'Rules'.DIRECTORY_SEPARATOR;
 const RESOURCES = ROOT.'app'.DIRECTORY_SEPARATOR."Resources".DIRECTORY_SEPARATOR;
+const SERVICES = ROOT. 'app'.DIRECTORY_SEPARATOR."Services".DIRECTORY_SEPARATOR;
 
 //**** PHP CLASS AUTO LOADER ****\\
 //create array of folders to be auto-loaded by PHP.
-$modules = [ROOT,APP,CONTROLLERS,CORE,DATABASE,PROVIDERS,ROUTES,VIEWS,RULES];
+$modules = [ROOT,APP,CONTROLLERS,CORE,DATABASE,PROVIDERS,ROUTES,VIEWS,RULES, RESOURCES, SERVICES];
 //set to include path of each of the folders specified in the modules array
 set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $modules));
 //call spl auto-load

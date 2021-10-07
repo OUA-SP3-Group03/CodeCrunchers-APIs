@@ -7,33 +7,52 @@
 
 namespace app\core;
 
+use app\services\TokenService;
+
 class Gate
 {
     //method function restricts specific controllers or sub controllers from being accessed by specific method types
     public static function post(): ?int
     {
         if($_SERVER['REQUEST_METHOD'] == "POST"){
-            return null;
+           return true;
+        }else{
+            return false;
         }
-        http_response_code(405);
-        return 405;
     }
     public static function get(): ?int{
         if($_SERVER['REQUEST_METHOD'] == "GET"){
-            return null;
+            return true;
+        }else{
+            return false;
         }
-        http_response_code(405);
-        return 405;
     }
 
-    //Gate get error data from code
-    public static function getError($code): string
+    //Gate logged in only
+    public static function loggedIn(): bool
     {
-        return match ($code) {
+        if(isset($_COOKIE["codecrunchers"]) && TokenService::validate($_COOKIE["codecrunchers"],"web")){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    public static function echo($responseCode){
+        http_response_code($responseCode);
+        echo match ($responseCode) {
             405 => "405: The request method is not supported for the requested resource",
             404 => "404: The requested resource could not be found",
+            403 => "403: The requested resource could not be loaded as you have insufficient permission",
             default => "invalid error code",
         };
+    }
+
+    public static function redirect(String $location){
+        ob_start();
+        header("location: $location");
+        ob_flush();
     }
 
 }

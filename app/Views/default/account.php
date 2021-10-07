@@ -10,8 +10,6 @@ include VIEWS."navbar.php";
 ?>
 
 <div class="container">
-
-<h1>Welcome to our home page!</h1>
-<p>This page will be the main landing index page for our game and contain all the information and screen shots to grab visitors attention</p>
-
+    <h1>My Account</h1>
+    <p>TODO: add my account page, this page will house all the my account information for the user and allow them to change information and view login history</p>
 </div>

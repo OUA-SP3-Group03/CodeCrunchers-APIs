@@ -39,7 +39,7 @@ class Application
             $result = $this->routeServiceProvider->loadRoute($apiUrl, true);
         }
         if (!$result) {
-            echo Gate::getError(404);
+            Gate::echo(404);
             http_response_code(404);
         }
     }
@@ -63,6 +63,8 @@ class Application
         //**** CREATE REQUEST **** \\
         $this->request = new Request();
         //first check if we have post data to add to the request, if so add it, else skip and pass blank array
+
+        //parse all post data to the request
         $postData = [];
         if(isset($_POST)){
             foreach ($_POST as $key => $data){
@@ -70,7 +72,8 @@ class Application
             }
         }
         $this->request->setPostData($postData);
-        //now check for get data to and add it to the request
+
+        //parse all the get data to the request
         $getData = [];
         if(isset($_GET)){
             foreach ($_GET as $key => $data){
@@ -78,6 +81,15 @@ class Application
             }
         }
         $this->request->setGetData($getData);
+
+        //Parse all cookies to the request
+        $cookieData = [];
+        if(isset($_COOKIE)){
+            foreach ($_COOKIE as $key => $data){
+                $cookieData[$key] = $data;
+            }
+        }
+        $this->request->setCookieData($cookieData);
     }
 
 

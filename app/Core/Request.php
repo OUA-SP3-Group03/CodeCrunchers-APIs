@@ -11,6 +11,7 @@ class Request
 {
     private array $postData;
     private array $getData;
+    private array $cookieData;
     private array $errors = [];
 
     public function validate(Rule $rules){
@@ -115,5 +116,16 @@ class Request
     //**** SET GET DATA METHOD ****\\
     public function setGetData(array $getData){
         $this->getData = $getData;
+    }
+
+    //**** SET COOKIE DATA ****\\
+    public function setCookieData(array $cookieData){
+        $this->cookieData = $cookieData;
+    }
+
+    //**** GET COOKIE DATA ****\\
+    public function getCookieData(): array
+    {
+        return $this->cookieData;
     }
 }
