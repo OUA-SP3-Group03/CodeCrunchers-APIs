@@ -44,11 +44,11 @@
 
             if(Gate::loggedIn()){
                 echo '<a href="/account"><button class="btn btn-primary">My Account</button></a>';
+                echo '<button class="btn btn-danger" style="float: right; margin-left: 1em" type="button" onclick="logout()" id="button-logout">Logout</button>';
+                require RESOURCES."userfunctions.php";
             }else{
                 echo '<a href="/login"><button class="btn btn-primary">Login!</button></a>';
-
             }
-
             ?>
         </div>
         </div>
