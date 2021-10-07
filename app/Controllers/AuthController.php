@@ -73,7 +73,6 @@ class AuthController extends Controller
 
                             //check if we are calling the web
                             if ($this->request->getPostData()["type"] == "web") {
-                                CookieService::delete("codecrunchers");
                                 echo json_encode(["success" => UserService::logoutWeb($this->request->getPostData()["token"]), "redirect" => "/login"]);
                             }
                             //check if we are calling the game
