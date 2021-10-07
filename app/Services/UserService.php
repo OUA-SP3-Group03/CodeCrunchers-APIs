@@ -77,6 +77,7 @@ class UserService extends Service
     //**** LOGOUT USER METHOD FOR WEB ****\\
     public static function logoutWeb(String $token): bool
     {
+        CookieService::delete("codecrunchers");
         return TokenService::delete($token,new tokens_web());
     }
 
