@@ -13,7 +13,7 @@ use app\database\tokens_game;
 use app\database\tokens_web;
 use Exception;
 
-class Token extends  Service
+class TokenService extends  Service
 {
     //array mapping
     private static int $user_id = 0;
@@ -42,7 +42,10 @@ class Token extends  Service
         };
 
             //next we delete any existing record that may be left over in the table
-            $database->deleteRowByPK($user_id);
+            $rowCheck = $database->getRowByValue("user_id",$user_id);
+            if($rowCheck != null) {
+                $database->deleteRowByPK($rowCheck[self::$token]);
+            }
 
             //finally, we create our values array and call the create row method in the database
             $values = [
@@ -52,7 +55,7 @@ class Token extends  Service
             ];
             //check if it succeeded or not
             if($database->createRow($values)){
-                return ["token" => $database->getRowByPK($user_id)[self::$token]];
+                return ["token" => $database->getRowByValue("user_id",$user_id)[self::$token]];
             }else {
                 return null;
             }
@@ -96,6 +99,11 @@ class Token extends  Service
         }
 
         return $outcome;
+    }
+
+    //**** DELETE TOKEN FUNCTION ****\\
+    public static function delete(String $token, Table $database): bool{
+        return $database->deleteRowByPK($token);
     }
 
 }
