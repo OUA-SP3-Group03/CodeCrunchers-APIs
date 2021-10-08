@@ -7,6 +7,7 @@
 
 namespace app\services;
 
+use app\core\Console;
 use app\core\Request;
 use app\core\Service;
 use app\database\tokens_game;
@@ -78,13 +79,19 @@ class UserService extends Service
     public static function logoutWeb(String $token): bool
     {
         CookieService::delete("codecrunchers");
-        return TokenService::delete($token,new tokens_web());
+        return TokenService::delete($token, new tokens_web());
     }
 
     //**** LOGOUT USER METHOD FOR GAME ****\\
     public static function logoutGame(String $token):bool
     {
-        return TokenService::delete($token, new tokens_game());
+        $database =  new tokens_game();
+        $result =  TokenService::delete($token,$database);
+
+        if($result && $database->getAffectedRows()>0){
+            return true;
+        }
+        return false;
     }
 
 }
