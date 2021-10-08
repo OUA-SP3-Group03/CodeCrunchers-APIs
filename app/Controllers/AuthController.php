@@ -77,7 +77,7 @@ class AuthController extends Controller
                             }
                             //check if we are calling the game
                             if ($this->request->getPostData()["type"] == "game") {
-                                echo json_encode(["success" => UserService::logoutGame($this->request->getPostData()["token"]), "redirect" => "/login"]);
+                                echo json_encode(["success" => UserService::logoutGame($this->request->getPostData()["token"]), "redirect" => "null"]);
                             }
                         }else{
                             //else we echo the errors and a success false variable
