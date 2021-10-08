@@ -15,6 +15,7 @@ abstract class Table
     protected String $primaryKey;
     protected array $columns;
     private array $errors;
+    private int $affectedRows;
 
     //Abstract constructor to force child classes to create it
     public abstract function __construct();
@@ -123,16 +124,28 @@ abstract class Table
         }
 
         //**** DELETE ROW BY PRIVATE KEY ****\\
-        public function deleteRowByPK(String $value): bool{
+        public function deleteRowByPK(String $value, Table $callback = null): bool{
             $outcome = false;
 
 
-                $result = Database::query("DELETE FROM $this->tableName WHERE $this->primaryKey='$value'");
+                $result = Database::query("DELETE FROM $this->tableName WHERE $this->primaryKey='$value'", $callback);
                 if($result){
                     $outcome = true;
                 }
 
 
             return $outcome;
+        }
+
+        //Affected rows callback
+        public function setAffectedRows(int $affectedRows)
+        {
+            $this->affectedRows = $affectedRows;
+        }
+
+        //get affected rows
+        public function getAffectedRows(): int
+        {
+            return $this->affectedRows;
         }
 }
