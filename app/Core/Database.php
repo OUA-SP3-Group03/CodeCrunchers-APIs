@@ -12,15 +12,20 @@ use mysqli_result;
 
 class Database
 {
+    const affectedRows = 0;
+
     //main database base connection method, used by the other facade functions
     private static function connect(): mysqli
     {
         return new mysqli("localhost","root","","codecrunchers");
     }
 
-    public static function query($sql): mysqli_result|bool
+    public static function query($sql, Table $callback = null): mysqli_result|bool
     {
-        return self::connect()->query($sql);
+        $database = self::connect();
+        $result = $database->query($sql);
+        $callback?->setAffectedRows($database->affected_rows);
+        return $result;
     }
 
     public static function fetch($sql): mysqli_result|array
