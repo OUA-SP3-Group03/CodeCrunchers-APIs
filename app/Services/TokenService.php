@@ -7,6 +7,7 @@
 
 namespace app\services;
 
+use app\core\Console;
 use app\core\Service;
 use app\core\Table;
 use app\database\tokens_game;
@@ -103,7 +104,7 @@ class TokenService extends  Service
 
     //**** DELETE TOKEN FUNCTION ****\\
     public static function delete(String $token, Table $database): bool{
-        return $database->deleteRowByPK($token);
+        return $database->deleteRowByPK($token, $database);
     }
 
 }
