@@ -17,6 +17,7 @@ class DefaultController extends Controller
     public function __construct($route = "/", Request $request = null)
     {
         $this->request = $request;
+        $this->route = $route;
 
         if (Gate::get()) {
             switch ($route) {
