@@ -21,12 +21,10 @@ class ScoreController extends Controller
     {
         //set this request
         $this->request = $request;
+        $this->route = $route;
 
         //set the post gate
         if(Gate::post()){
-            //echo an error if the gate is not matching post
-            echo Gate::getError(Gate::post());
-        }else{
             switch ($route){
                 case "/add":
                     $this->request->validate(new AddScoreRequestRule());
@@ -43,6 +41,8 @@ class ScoreController extends Controller
                     echo "Get high scores end point";
                     break;
             }
+        }else{
+            Gate::echo(405);
         }
 
     }
