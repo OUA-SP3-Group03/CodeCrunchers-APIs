@@ -40,4 +40,8 @@ class ScoreService extends Service
         return $score_db->createRow($values);
     }
 
+    public static function getScores(Request $request){
+        //TODO ADD METHOD
+}
+
 }
