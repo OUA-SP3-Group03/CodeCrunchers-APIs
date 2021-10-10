@@ -24,6 +24,8 @@ class AuthController extends Controller
     public function __construct(String $route = "/", Request $request = null)
     {
         $this->request = $request;
+        $this->route = $route;
+
         header('Content-Type: application/json; charset=utf-8');
 
         if(Gate::post()) {
