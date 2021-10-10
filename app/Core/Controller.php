@@ -11,6 +11,7 @@ class Controller
 {
 
     protected Request $request;
+    protected String $route;
 
 
 }
