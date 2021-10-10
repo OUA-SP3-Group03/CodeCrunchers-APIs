@@ -7,7 +7,6 @@
 
 namespace app\services;
 
-use app\core\Console;
 use app\core\Service;
 use app\core\Table;
 use app\database\tokens_game;
