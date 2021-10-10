@@ -12,7 +12,6 @@ use mysqli_result;
 
 class Database
 {
-    const affectedRows = 0;
 
     //main database base connection method, used by the other facade functions
     private static function connect(): mysqli
