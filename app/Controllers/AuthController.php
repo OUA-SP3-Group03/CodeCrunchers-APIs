@@ -11,6 +11,7 @@ use app\core\Console;
 use app\core\Controller;
 use app\core\Gate;
 use app\core\Request;
+use app\rules\CheckRequestRule;
 use app\rules\LoginRequestRule;
 use app\rules\logoutRequestRule;
 use app\rules\SignupRequestRule;
@@ -87,7 +88,17 @@ class AuthController extends Controller
                         }
                     break;
                 case "/check":
-                    //TODO add check code later
+                    $this->request->validate(new CheckRequestRule());
+                    if($this->request->getErrors() == []){
+                        if($this->request->getPostData()['type'] == "game"){
+                            echo json_encode(["success" => UserService::checkGame($this->request->getPostData()['token'])]);
+                        }else{
+                            echo json_encode(["success" => UserService::checkWeb($this->request->getPostData()['game'])]);
+                        }
+                    }else{
+                        echo json_encode(["success" => false, "errors" => $this->request->getErrors()]);
+                    }
+
                     break;
                 case "/add":
                     //firstly to create the signup we validate the request with our signup rule
