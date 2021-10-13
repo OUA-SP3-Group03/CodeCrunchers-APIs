@@ -94,4 +94,18 @@ class UserService extends Service
         return false;
     }
 
+    //**** CHECK USER TOKEN FOR WEB ****\\
+    public static function checkWeb(String $token): bool
+    {
+        return TokenService::validate($token,"web");
+    }
+
+    //**** CHECK USER TOKEN FOR Game ****\\
+    public static function checkGame(String $token): bool
+    {
+        return TokenService::validate($token,"game");
+    }
+
+
+
 }
