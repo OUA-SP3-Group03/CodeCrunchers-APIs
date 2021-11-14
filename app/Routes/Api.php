@@ -29,6 +29,12 @@ class Api
         $score->addRoute("/get","ScoreController");
         $routeServiceProvider->addApiRouteGroup("/score",$score);
 
+        $public = new RouteGroup();
+        $public->addRoute("/style","PublicController");
+        $public->addRoute("/js","PublicController");
+        $public->addRoute("/logo","PublicController");
+        $routeServiceProvider->addApiRouteGroup("/public",$public);
+
     }
 
 }
