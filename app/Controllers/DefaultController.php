@@ -44,6 +44,9 @@ class DefaultController extends Controller
                 case "/scores":
                         include VIEWS . "default" . DIRECTORY_SEPARATOR . "scores.php";
                     break;
+                case "/credits":
+                    echo "Credits page coming soon!";
+                    break;
             }
         }else{
            Gate::echo(405);
