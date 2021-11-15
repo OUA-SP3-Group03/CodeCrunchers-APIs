@@ -21,6 +21,7 @@ class Api
         $auth->addRoute("/logout","AuthController");
         $auth->addRoute("/check","AuthController");
         $auth->addRoute("/add","AuthController");
+        $auth->addRoute("/get","AuthController");
         $routeServiceProvider->addApiRouteGroup("/auth",$auth);
 
 
