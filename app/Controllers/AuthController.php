@@ -12,6 +12,7 @@ use app\core\Controller;
 use app\core\Gate;
 use app\core\Request;
 use app\rules\CheckRequestRule;
+use app\rules\GetRequestRule;
 use app\rules\LoginRequestRule;
 use app\rules\logoutRequestRule;
 use app\rules\SignupRequestRule;
@@ -114,6 +115,19 @@ class AuthController extends Controller
                     }
                     break;
                 case "/get":
+                    //firstly we validate the token
+                    $this->request->validate(new GetRequestRule());
+                    if($this->request->getErrors() != []){
+                        Console::log(json_encode($this->request->getErrors()));
+                    }else{
+                        $userData = UserService::getInfo($this->request->getPostData()['token']);
+                        if($userData != []) {
+                            Console::log(json_encode(["success"=>true,"username" => $userData[1], "first_name" => $userData[2], "last_name" => $userData[3], "email" => $userData[4]]));
+                        }else{
+                            Console::log(json_encode(["success"=>false]));
+                        }
+                        //print_r( UserService::getInfo($this->request->getPostData()['token']));
+                    }
 
                     break;
             }
