@@ -106,6 +106,22 @@ class UserService extends Service
         return TokenService::validate($token,"game");
     }
 
+    public static function getInfo(String $token): array
+    {
+        $game_db = new tokens_game();
+        $user_id = $game_db->getRowByValue("token",$token);
+        if($user_id != null) {
+            $user_id = $user_id[0];
+        }
+        $user_db = new users();
+        $result = $user_db->getRowByPK($user_id);
+        if($result != []){
+            return $result;
+        }else{
+            return [];
+        }
+    }
+
 
 
 }
