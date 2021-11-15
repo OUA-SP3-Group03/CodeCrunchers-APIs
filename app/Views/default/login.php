@@ -12,6 +12,11 @@ include VIEWS."navbar.php";
 <div class="container">
 <h1>Login</h1>
 <form style="max-width: 400px; justify-content: center">
+    <?php if(isset($_GET['registration_success'])){
+            echo '<div class="alert alert-success" role="alert">
+        <strongAccount Created!</strong> Please login with your new account!
+    </div>';
+    }?>
     <div class="alert alert-danger" role="alert" style="display: none" id="alert-login-failed">
         <strong>Login failed!</strong> please check your email and password and try again
     </div>
@@ -41,7 +46,7 @@ include VIEWS."navbar.php";
     const passwordInput = document.getElementById("input-password");
     const passwordInputAlert = document.getElementById("input-password-alert");
     const loginFailedAlert = document.getElementById("alert-login-failed");
-
+s
     //**** LOGIN BUTTON FUNCTION ****\\
     function login(){
 
