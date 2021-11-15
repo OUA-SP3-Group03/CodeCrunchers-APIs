@@ -106,11 +106,11 @@ class AuthController extends Controller
                     $this->request->validate(new SignupRequestRule());
                     //now we check to ensure we have no errors, if we do we output them, else we proceed
                     if($this->request->getErrors() != []){
-                        Console::log(json_encode($this->request->getErrors()));
+                        Console::log(json_encode(["success"=>false,"errors"=>$this->request->getErrors()]));
                     }else{
                        $result = UserService::create($this->request);
                        if($result){
-                           echo "user created";
+                           Console::log(json_encode(["success"=>true]));
                        }
                     }
                     break;
