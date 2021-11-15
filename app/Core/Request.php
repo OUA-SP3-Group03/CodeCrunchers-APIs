@@ -25,10 +25,12 @@ class Request
                         if(!$this->required($this->postData[$key])){
                             $this->errors[$ruleSingleKey] = "Required validation failed";
                         }
+
                     }else if($ruleSingleKey == "unique"){
                         if(!$this->unique($this->postData[$key],$key,$rules->getDatabaseTableName())){
                             $this->errors[$key] = "Unique validation failed";
                         }
+
                     }else if($ruleSingleKey == "email"){
                         if(!$this->email($this->postData[$key])){
                             $this->errors[$ruleSingleKey] = "Email validation failed";
@@ -60,6 +62,11 @@ class Request
     //Checks the database to see if the value is going to be unique, throws false if the value is present in the specified table
     private function unique(String $value, String $column ,String $tableName): bool
     {
+        //I have no time to fix this lol!
+        if($column === "username"){
+            $column = "user_name";
+        }
+
         //set the namespace for the database class
         //ERROR: a space is needed after the black slash, this needs to be removed in the next line
         $namespace = "\app\database\ ";
