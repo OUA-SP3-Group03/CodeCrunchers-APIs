@@ -7,8 +7,8 @@
 
 use app\services\ScoreService;
 
-include VIEWS."header.php";
-include VIEWS."navbar.php";
+include VIEWS."Header.php";
+include VIEWS."Navbar.php";
 ?>
 
 <div class="container">
