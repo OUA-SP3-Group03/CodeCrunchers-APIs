@@ -9,9 +9,10 @@ include VIEWS."header.php";
 include VIEWS."navbar.php";
 
 ?>
-<div class="container">
-<h1>Login</h1>
-<form style="max-width: 400px; justify-content: center">
+<div class="container" id="body-content">
+<form style="max-width: 400px; justify-content: center" id="login-form">
+    <h1>Login</h1>
+
     <?php if(isset($_GET['registration_success'])){
             echo '<div class="alert alert-success" role="alert">
         <strongAccount Created!</strong> Please login with your new account!
@@ -46,7 +47,7 @@ include VIEWS."navbar.php";
     const passwordInput = document.getElementById("input-password");
     const passwordInputAlert = document.getElementById("input-password-alert");
     const loginFailedAlert = document.getElementById("alert-login-failed");
-s
+
     //**** LOGIN BUTTON FUNCTION ****\\
     function login(){
 
