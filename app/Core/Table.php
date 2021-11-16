@@ -40,9 +40,13 @@ abstract class Table
     }
 
     //get all rows from the table, turns array
-    public function getAllRows():array
+    public function getAllRows(String $order = null):array
     {
-        return Database::fetch("SELECT * FROM $this->tableName");
+        if($order == null) {
+            return Database::fetch("SELECT * FROM $this->tableName");
+        }else{
+            return Database::fetch("SELECT * FROM $this->tableName ORDER BY score $order");
+        }
     }
 
     //gets the row with a matching primary key
