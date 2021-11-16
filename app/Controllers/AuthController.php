@@ -122,7 +122,7 @@ class AuthController extends Controller
                     }else{
                         $userData = UserService::getInfo($this->request->getPostData()['token']);
                         if($userData != []) {
-                            Console::log(json_encode(["success"=>true,"username" => $userData[1], "first_name" => $userData[2], "last_name" => $userData[3], "email" => $userData[4]]));
+                            Console::log(json_encode(["success"=>true,"username" => $userData[1],"user_id"=>$userData[0] ,"first_name" => $userData[2], "last_name" => $userData[3], "email" => $userData[4]]));
                         }else{
                             Console::log(json_encode(["success"=>false]));
                         }
