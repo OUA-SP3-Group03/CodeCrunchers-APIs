@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 2em;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="/">Code Crunchers!</a>
+        <a class="navbar-brand" href="/"><img src="/api/public/logo" alt="Code Crunchers Logo!"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,14 +12,12 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/scores">Global Rankings</a>
+                    <a class="nav-link active" aria-current="page" href="/scores">High Scores!</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/help">Help & Support</a>
+                    <a class="nav-link active" aria-current="page" href="/download">Download</a>
                 </li>
                 <?php
-                //Hide if the user is not logged in
-                //TODO replace temp variable with proper login check
                 use app\core\Gate;
 
                 if(isset($loggedIn) && $loggedIn = true){
