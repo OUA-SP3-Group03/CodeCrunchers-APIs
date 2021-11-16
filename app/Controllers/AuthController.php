@@ -126,9 +126,7 @@ class AuthController extends Controller
                         }else{
                             Console::log(json_encode(["success"=>false]));
                         }
-                        //print_r( UserService::getInfo($this->request->getPostData()['token']));
                     }
-
                     break;
             }
         }else{
