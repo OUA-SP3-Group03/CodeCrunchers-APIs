@@ -122,6 +122,22 @@ class UserService extends Service
         }
     }
 
+    public static function getInfoWeb(String $token): array
+    {
+        $token_db = new tokens_web();
+        $user_id = $token_db->getRowByValue("token",$token);
+        if($user_id != null) {
+            $user_id = $user_id[0];
+        }
+        $user_db = new users();
+        $result = $user_db->getRowByPK($user_id);
+        if($result != []){
+            return $result;
+        }else{
+            return [];
+        }
+    }
+
 
 
 }
