@@ -40,8 +40,35 @@ class ScoreService extends Service
         return $score_db->createRow($values);
     }
 
-    public static function getScores(Request $request){
-        //TODO ADD METHOD
-}
+    public static function getScores(int $limit = null): array{
+        $score_db = new scores;
+        $allScores = $score_db->getAllRows("DESC");
+
+        $scores = [];
+
+        if($limit == null){
+            $limit = count($allScores);
+        }
+
+        if($limit > count($allScores) || $limit < 0){
+            $limit = count($allScores);
+        }
+
+        $i =0;
+        while($i < $limit){
+
+            $tempArray = [];
+
+            $tempArray["username"] = UserService::getUsername($allScores[$i][1]);
+            $tempArray["score"] = $allScores[$i][3];
+            $tempArray["date"] = $allScores[$i][2];
+            $scores[$i] = $tempArray;
+
+            $i++;
+        }
+
+
+        return $scores;
+    }
 
 }
