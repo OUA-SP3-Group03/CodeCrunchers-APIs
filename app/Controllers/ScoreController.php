@@ -23,22 +23,24 @@ class ScoreController extends Controller
         $this->request = $request;
         $this->route = $route;
 
+        header('Content-Type: application/json; charset=utf-8');
+
         //set the post gate
         if(Gate::post()){
             switch ($route){
                 case "/add":
                     $this->request->validate(new AddScoreRequestRule());
                     if($this->request->getErrors() != []){
-                        Console::log(json_encode($this->request->getErrors()));
+                        Console::log(json_encode(["success"=>false,"errors"=>$this->request->getErrors()]));
                     }else{
                         $result = ScoreService::add($this->request);
                         if($result){
-                            echo "score added";
+                            Console::log(json_encode(["success"=>true]));
                         }
                     }
                     break;
                 case "/get":
-                    echo "Get high scores end point";
+                        Console::log(json_encode(["success" => true, "scores" => ScoreService::getScores(50)]));
                     break;
             }
         }else{
