@@ -138,6 +138,18 @@ class UserService extends Service
         }
     }
 
+    public static function getUsername(int $userId = null){
+        $user_db = new users();
+        $outcome = null;
+
+        $result = $user_db->getRowByPK($userId);
+        if($result != null || $result != []){
+            $outcome = $result[1];
+        }
+
+        return $outcome;
+    }
+
 
 
 }
