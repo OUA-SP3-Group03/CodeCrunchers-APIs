@@ -34,6 +34,8 @@ class Api
         $public->addRoute("/style","PublicController");
         $public->addRoute("/js","PublicController");
         $public->addRoute("/logo","PublicController");
+        $public->addRoute("/brick-texture","PublicController");
+        $public->addRoute("/alpha-v2-screenshot","PublicController");
         $routeServiceProvider->addApiRouteGroup("/public",$public);
 
     }
