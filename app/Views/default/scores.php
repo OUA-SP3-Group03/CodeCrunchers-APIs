@@ -12,5 +12,5 @@ include VIEWS."navbar.php";
 <div class="container">
 
     <h1>Global High Scores</h1>
-    <p>page coming soon</p>
+    <p style="color: white">High Scores List Coming Soon!</p>
 </div>
