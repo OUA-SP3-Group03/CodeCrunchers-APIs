@@ -50,6 +50,9 @@ class DefaultController extends Controller
                 case "/download":
                     include VIEWS."default".DIRECTORY_SEPARATOR."download.php";
                     break;
+                case "/terms-of-service":
+                    include VIEWS."default".DIRECTORY_SEPARATOR."tos.php";
+                    break;
             }
         }else{
            Gate::echo(405);
