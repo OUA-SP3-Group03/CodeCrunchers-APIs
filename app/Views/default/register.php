@@ -66,7 +66,7 @@ include VIEWS . "navbar.php";
         </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="accept-tos">
-                <label class="form-check-label" for="exampleCheck1">I Agree to the Code Crunchers <a href="/help/tos">Terms of Service</a></label>
+                <label class="form-check-label" for="exampleCheck1">I Agree to the Code Crunchers <a href="/terms-of-service">Terms of Service</a></label>
             </div>
     <p>Already have an account? <a href="/login">login now!</a></p>
     <button onclick="register()" type="button" class="btn btn-primary" id="registerButton">Submit</button>
