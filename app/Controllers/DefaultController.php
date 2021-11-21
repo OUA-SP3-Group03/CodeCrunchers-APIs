@@ -45,7 +45,7 @@ class DefaultController extends Controller
                         include VIEWS . "default" . DIRECTORY_SEPARATOR . "scores.php";
                     break;
                 case "/credits":
-                    echo "Credits page coming soon!";
+                    header("Location: http://localhost/download");
                     break;
                 case "/download":
                     include VIEWS."default".DIRECTORY_SEPARATOR."download.php";
