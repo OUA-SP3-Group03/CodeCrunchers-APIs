@@ -25,6 +25,7 @@ class Web
         $default->addRoute("/account","DefaultController");
         $default->addRoute("/credits","DefaultController");
         $default->addRoute("/download","DefaultController");
+        $default->addRoute("/terms-of-service","DefaultController");
         //finally, register the route group with the core route service provider using the correct parent prefix for this group
         $routeServiceProvider->addRouteGroup("/",$default);
     }
